@@ -17,32 +17,20 @@
       </tr>
     </thead>
     <tbody>
+      {% for fruit in fruits %}
       <tr>
-        <td>1</td>
-        <td>りんご</td>
-        <td>100円</td>
-        <td>2024-06-01 10:00</td>
-        <td>ボタンが入る</td>
+        <td>{{fruit.fruit_id}}</td>
+        <td>{{fruit.fruit_name}}</td>
+        <td>{{fruit.price}}</td>
+        <td>{{fruit.updated_at}}</td>
+        <td>
+          <a class="btn btn-primary" href="{% url 'modify_fruit_master' fruit_id=fruit.fruit_id %}">編集 </a>
+          <button class="btn btn-danger" onclick="confirmDelete({{fruit.fruit_id}})">削除</button>
+        </td>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>バナナ</td>
-        <td>150円</td>
-        <td>2024-06-01 11:00</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>オレンジ</td>
-        <td>200円</td>
-        <td>2024-06-01 12:00</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>ぶどう</td>
-        <td>250円</td>
-        <td>2024-06-01 13:00</td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
+<a class="btn btn-primary" href="{% url 'register_fruit_master' %}">新規追加</a>
 {% endblock %}

@@ -82,7 +82,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "dev_fluit_stock_app",
+        "NAME": "dev_fruit_stock_app_db",
         "USER": "root",
         "PASSWORD": "devsatoshi4081",
         "HOST": "172.23.230.43",
@@ -118,8 +118,8 @@ PASSWORD_HASHERS = [
 ]
 
 AUTH_USER_MODEL = "apps.User"
-LOGIN_REDIRECT_URL = "/fluit-stock-app/home/"
-LOGOUT_REDIRECT_URL = "/fluit-stock-app/login/"
+LOGIN_REDIRECT_URL = "/fruit-stock-app/home/"
+LOGOUT_REDIRECT_URL = "/fruit-stock-app/login/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

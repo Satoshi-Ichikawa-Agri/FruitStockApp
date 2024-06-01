@@ -23,14 +23,35 @@ from apps.views.pages.account_view import (
     logout,
     home,
 )
-from apps.views.pages.fluit_stock import fruit_master_top
+from apps.views.pages.fruit_stock import (
+    fruit_master_top,
+    register_fruit_master,
+    modify_fruit_master,
+    delete_fruit_master,
+)
 
 
 urlpatterns = [
+    # account
     path("signup/", signup, name="signup"),
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
     path("home/", home, name="home"),
-    # Fluit_Master
+    # Fruit_Master
     path("fruit_master_top/", fruit_master_top, name="fruit_master_top"),
+    path(
+        "register_fruit_master/",
+        register_fruit_master,
+        name="register_fruit_master",
+    ),
+    path(
+        "modify_fruit_master/<int:fruit_id>/",
+        modify_fruit_master,
+        name="modify_fruit_master",
+    ),
+    path(
+        "delete_fruit_master/<int:fruit_id>/",
+        delete_fruit_master,
+        name="delete_fruit_master",
+    ),
 ]
