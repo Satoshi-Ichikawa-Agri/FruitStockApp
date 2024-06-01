@@ -1,0 +1,8 @@
+{% load breadcrumbs %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    {% for name, url in breadcrumbs request %}
+    <li class="breadcrumb-item"><a href="{{ url }}">{{ name }}</a></li>
+    {% endfor %}
+  </ol>
+</nav>

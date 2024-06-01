@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}販売情報管理{% endblock %}
+
+{% block content %}
+<h2>販売情報管理</h2>
+<!-- TODO パンくずリストを追加する -->
+<div class="table-container">
+  <table class="table table-striped table-hover">
+    <thead class="table-header">
+      <tr>
+        <th>果物</th>
+        <th>個数</th>
+        <th>売り上げ</th>
+        <th>販売日時</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in sales %}
+      <tr>
+        <td>{{item.fruit_name}}</td>
+        <td>{{item.sales_volume}}</td>
+        <td>{{item.total_price}}</td>
+        <td>{{item.updated_at}}</td>
+        <td>
+          <a class="btn btn-primary" href="{% url 'modify_fruit_sales' sales_id=item.sales_id %}">編集 </a>
+        </td>
+        <td>
+          <button class="btn btn-danger" onclick="confirmDelete({{item.sales_id}})">削除</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<a class="btn btn-primary" href="{% url 'register_fruit_sales' %}">新規追加</a>
+{% endblock %}

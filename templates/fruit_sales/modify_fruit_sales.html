@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}販売情報編集{% endblock %}
+
+{% block content %}
+<h2>販売情報登録</h2>
+<!-- TODO パンくずリストを追加する -->
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">登録</button>
+</form>
+{% endblock %}

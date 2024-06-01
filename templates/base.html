@@ -15,11 +15,13 @@
 </head>
 
 <body>
-  {% block header %}{% include 'parts/header.html' %}{% endblock %}
-  {% block message %}{% include 'parts/message.html' %}{% endblock %}
-  {% block content %}
-  {% endblock %}
-  {% block footer %}{% include 'parts/footer.html' %}{% endblock %}
+  <!-- ヘッダー -->
+  {% block header %}{% include 'html_parts/header.html' %}{% endblock %}
+  {% block message %}{% include 'html_parts/message.html' %}{% endblock %}
+  <!-- メイン -->
+  {% block content %}{% endblock %}
+  <!-- フッター -->
+  {% block footer %}{% include 'html_parts/footer.html' %}{% endblock %}
   <!-- Javascript -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="{% static 'js/buttonAction.js' %}"></script>

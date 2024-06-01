@@ -7,7 +7,7 @@ class FruitMasterModel(BaseMixin):
     """果物マスタテーブル"""
 
     fruit_id = models.AutoField(primary_key=True)
-    fruit_name = models.CharField(max_length=100)
+    fruit_name = models.CharField(max_length=100, unique=True)
     price = models.IntegerField()
 
     class Meta:
@@ -26,6 +26,7 @@ class FruitSalesModel(BaseMixin):
     price = models.IntegerField()
     sales_volume = models.IntegerField()
     total_price = models.IntegerField()
+    sales_date = models.DateTimeField()
 
     class Meta:
         db_table = "t_fruit_sales"
