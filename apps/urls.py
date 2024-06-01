@@ -17,9 +17,20 @@ Including another URLconf
 
 from django.urls import path
 
-from apps.views.account_view import signup, login
+from apps.views.pages.account_view import (
+    signup,
+    login,
+    logout,
+    home,
+)
+from apps.views.pages.fluit_stock import fruit_master_top
+
 
 urlpatterns = [
     path("signup/", signup, name="signup"),
     path("login/", login, name="login"),
+    path("logout/", logout, name="logout"),
+    path("home/", home, name="home"),
+    # Fluit_Master
+    path("fruit_master_top/", fruit_master_top, name="fruit_master_top"),
 ]
