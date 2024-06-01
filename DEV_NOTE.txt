@@ -1,0 +1,5 @@
+★スーパーユーザー
+username:admin
+mail:superuser@test.com
+birthday:2000-1-1
+pass:1234pswd
