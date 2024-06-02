@@ -3,8 +3,21 @@
 {% block title %}果物販売管理 ホーム{% endblock %}
 
 {% block content %}
-<h2>管理TOP</h2>
-<a href="{% url 'fruit_master_top' %}">果物マスタ管理</a><br>
-<a href="{% url 'fruit_sales_top' %}">販売情報管理</a><br>
-<a href="{% url 'sales_statistics_top' %}">販売統計情報</a><br>
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h2>管理TOP</h2>
+    <p class="lead">果物販売管理システムへようこそ</p>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-4 mb-3">
+      <a href="{% url 'fruit_master_top' %}" class="btn btn-primary btn-lg w-100">果物マスタ管理</a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="{% url 'fruit_sales_top' %}" class="btn btn-success btn-lg w-100">販売情報管理</a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="{% url 'sales_statistics_top' %}" class="btn btn-info btn-lg w-100">販売統計情報</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

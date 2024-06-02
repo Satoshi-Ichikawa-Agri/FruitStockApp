@@ -1,12 +1,30 @@
 {% extends "base.html" %}
 
+{% load form_tags %}
 {% block title %}ログイン{% endblock %}
 
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">ログイン</button>
-</form>
+<div class="container container-custom mt-5">
+  <div class="card">
+    <div class="card-header text-center">
+      <h2>ログイン</h2>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          {{ form.username.label_tag }}
+          {{ form.username|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+          {{ form.password.label_tag }}
+          {{ form.password|add_class:"form-control" }}
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-custom">ログイン</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

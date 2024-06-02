@@ -1,29 +1,29 @@
 import os
-from django.contrib.messages import constants as message_constants
 from pathlib import Path
+from django.contrib.messages import constants as message_constants
+from dotenv import load_dotenv
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 LOG_DIR = os.path.join(BASE_DIR, "log")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+# 環境変数をロード
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    "django-insecure-f+qm#p$7fn9m!=1q+c=vov4_3qzrev&#j=#qoamtlew&5q2bqi"
-)
+# SECRET_KEYの設定
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+# Email
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT", 587)
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -31,8 +31,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.humanize",
-    "apps",
+    "django.contrib.humanize",  # templatetag(comma)
+    "apps",  # FruitStockManagement
 ]
 
 MIDDLEWARE = [
@@ -68,24 +68,20 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# Database(MySQL)
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "dev_fruit_stock_app_db",
-        "USER": "root",
-        "PASSWORD": "devsatoshi4081",
-        "HOST": "172.23.230.43",
-        "PORT": "3306",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST", "localhost"),
+        "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
 
 
 # Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -109,36 +105,27 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
 
+# AUTH
 AUTH_USER_MODEL = "apps.User"
 LOGIN_REDIRECT_URL = "/fruit-stock-app/home/"
 LOGOUT_REDIRECT_URL = "/fruit-stock-app/login/"
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = "ja"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+# message
 MESSAGE_TAGS = {
     message_constants.DEBUG: "debug",
     message_constants.INFO: "info",
@@ -147,8 +134,10 @@ MESSAGE_TAGS = {
     message_constants.ERROR: "error",
 }
 
+# default comma
 NUMBER_GROUPING = 3
 
+# logging
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

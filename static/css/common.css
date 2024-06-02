@@ -1,0 +1,11 @@
+/* Header */
+.header-link:hover,
+.footer-link:hover {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+.bg-dark-blue {
+  background-color: #002d72;
+}
+
