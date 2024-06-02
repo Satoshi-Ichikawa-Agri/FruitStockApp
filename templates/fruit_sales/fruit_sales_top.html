@@ -36,4 +36,14 @@
   </table>
 </div>
 <a class="btn btn-primary" href="{% url 'register_fruit_sales' %}">新規追加</a>
+
+<!-- CSV アップロードフォーム -->
+<form method="post" enctype="multipart/form-data" action="{% url 'upload_csv' %}">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="csv_file">CSV一括登録</label>
+    <input type="file" name="csv_file" id="csv_file" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-success">CSVアップロード</button>
+</form>
 {% endblock %}

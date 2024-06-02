@@ -9,6 +9,9 @@ from apps.models.account_model import User
 
 
 class LoginForm(AuthenticationForm):
+    """ログインフォーム"""
+
+    # (注意)Emailです。
     username = forms.EmailField(
         widget=forms.EmailInput(attrs={"autofocus": True}),
         label="ユーザー名",
@@ -55,6 +58,7 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
+# Admin用
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
     the user, but replaces the password field with admin's

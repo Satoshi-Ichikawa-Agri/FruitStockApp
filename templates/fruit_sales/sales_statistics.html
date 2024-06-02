@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}販売統計情報{% endblock %}
+
+{% block content %}
+<h2>販売統計情報</h2>
+
+<div class="breadcrumbs">
+  <a href="{% url 'home' %}">TOP</a> &gt; 販売統計情報
+</div>
+<h3>累計</h3>
+<p>{{ statistics.total_sales }}円</p>
+
+<h3>月別</h3>
+<table class="table table-striped table-hover">
+  <thead class="table-header">
+    <tr>
+      <th>年月</th>
+      <th>合計売上</th>
+      <th>内訳</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in statistics.monthly_sales %}
+    <tr>
+      <td>{{ item.month }}</td>
+      <td>{{ item.total }}円</td>
+      <td>
+        <ul>
+          {% for fruit, details in item.details %}
+          <li>{{ fruit }}: {{ details.amount }}円({{ details.volume }}個)</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>日別</h3>
+<table class="table table-striped table-hover">
+  <thead class="table-header">
+    <tr>
+      <th>年月日</th>
+      <th>合計売上</th>
+      <th>内訳</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in statistics.daily_sales %}
+    <tr>
+      <td>{{ item.day }}</td>
+      <td>{{ item.total }}円</td>
+      <td>
+        <ul>
+          {% for fruit, details in item.details %}
+          <li>{{ fruit }}: {{ details.amount }}円({{ details.volume }}個)</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

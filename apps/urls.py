@@ -17,12 +17,7 @@ Including another URLconf
 
 from django.urls import path
 
-from apps.views.pages.account_view import (
-    signup,
-    login,
-    logout,
-    home,
-)
+from apps.views.pages.account_view import login, logout, home
 from apps.views.pages.fruit_stock import (
     fruit_master_top,
     register_fruit_master,
@@ -32,12 +27,13 @@ from apps.views.pages.fruit_stock import (
     register_fruit_sales,
     modify_fruit_sales,
     delete_fruit_sales,
+    sales_statistics_top,
+    upload_csv,
 )
 
 
 urlpatterns = [
     # account
-    path("signup/", signup, name="signup"),
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
     path("home/", home, name="home"),
@@ -75,4 +71,12 @@ urlpatterns = [
         delete_fruit_sales,
         name="delete_fruit_sales",
     ),
+    # Sales Statistics
+    path(
+        "sales_statistics_top/",
+        sales_statistics_top,
+        name="sales_statistics_top",
+    ),
+    # CSV
+    path("upload_csv/", upload_csv, name="upload_csv"),
 ]

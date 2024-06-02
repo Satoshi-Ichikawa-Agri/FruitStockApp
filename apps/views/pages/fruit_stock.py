@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -6,6 +7,8 @@ from apps.forms.fruit_form import (
     FruitSalesResisterForm,
 )
 from apps.models.fruit_master_model import FruitMasterModel, FruitSalesModel
+from apps.views.csv_sales import insert_sales_csv
+from apps.views.statistics import statistics_summary
 
 
 @login_required
@@ -42,6 +45,7 @@ def register_fruit_master(request):
     return render(request, "fruit_master/register_fruit_master.html", context)
 
 
+@login_required
 def modify_fruit_master(request, fruit_id):
     """果物管理マスタ修正画面"""
 
@@ -63,6 +67,7 @@ def modify_fruit_master(request, fruit_id):
     return render(request, "fruit_master/modify_fruit_master.html", context)
 
 
+@login_required
 def delete_fruit_master(request, fruit_id):
     """果物管理マスタ削除処理"""
     fruit = get_object_or_404(FruitMasterModel, pk=fruit_id)
@@ -71,7 +76,6 @@ def delete_fruit_master(request, fruit_id):
     return redirect("fruit_master_top")
 
 
-# --------------------
 @login_required
 def fruit_sales_top(request):
     """販売情報管理TOP画面"""
@@ -121,6 +125,7 @@ def register_fruit_sales(request):
     return render(request, "fruit_sales/register_fruit_sales.html", context)
 
 
+@login_required
 def modify_fruit_sales(request, sales_id):
     """販売情報管理修正画面"""
 
@@ -157,9 +162,36 @@ def modify_fruit_sales(request, sales_id):
     return render(request, "fruit_sales/modify_fruit_sales.html", context)
 
 
+@login_required
 def delete_fruit_sales(request, sales_id):
     """販売情報管理削除処理"""
     fruit = get_object_or_404(FruitSalesModel, pk=sales_id)
     fruit.delete()
+
+    return redirect("fruit_sales_top")
+
+
+def sales_statistics_top(request):
+    """販売統計情報画面"""
+    sales = FruitSalesModel.objects.all()
+    context = statistics_summary(sales)
+    
+    return render(request, "fruit_sales/sales_statistics.html", context)
+
+
+@login_required
+def upload_csv(request):
+    """Sales CSV処理"""
+    if request.method == "POST":
+        csv_file = request.FILES["csv_file"]
+        try:
+            insert_sales_csv(csv_file, FruitSalesModel, FruitMasterModel)
+            messages.success(
+                request,
+                "CSVファイルのデータが正常にアップロードされました。",
+            )
+        except Exception as e:
+            messages.error(request, f"エラーが発生しました: {str(e)}")
+        return redirect("fruit_sales_top")
 
     return redirect("fruit_sales_top")
