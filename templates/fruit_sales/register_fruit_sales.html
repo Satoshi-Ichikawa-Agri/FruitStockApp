@@ -1,14 +1,34 @@
 {% extends "base.html" %}
+{% load form_tags %}
 
 {% block title %}販売情報登録{% endblock %}
 
 {% block content %}
-<h2>販売情報登録</h2>
-<!-- TODO パンくずリストを追加する -->
-
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">登録</button>
-</form>
+<div class="container container-custom mt-5">
+  <div class="card">
+    <div class="card-header text-center">
+      <h2>販売情報登録</h2>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          {{ form.fruit.label_tag }}
+          {{ form.fruit|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+          {{ form.sales_volume.label_tag }}
+          {{ form.sales_volume|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+          {{ form.sales_date.label_tag }}
+          {{ form.sales_date|add_class:"form-control" }}
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-custom">登録</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

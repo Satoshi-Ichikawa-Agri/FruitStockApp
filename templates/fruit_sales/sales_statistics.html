@@ -9,58 +9,134 @@
 <div class="breadcrumbs">
   <a href="{% url 'home' %}">TOP</a> &gt; 販売統計情報
 </div>
-<h3>累計</h3>
-<p>{{ statistics.total_sales }}円</p>
+<div class="statistics">
+  <h3>累計</h3>
+  <p class="total-sales">{{ statistics.total_sales | intcomma }}円</p>
 
-<h3>月別</h3>
-<table class="table table-striped table-hover">
-  <thead class="table-header">
-    <tr>
-      <th>年月</th>
-      <th>合計売上</th>
-      <th>内訳</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in statistics.monthly_sales %}
-    <tr>
-      <td>{{ item.month }}</td>
-      <td>{{ item.total }}円</td>
-      <td>
-        <ul>
-          {% for fruit, details in item.details %}
-          <li>{{ fruit }}: {{ details.amount }}円({{ details.volume }}個)</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <h3>月別</h3>
+  <table class="table table-striped table-hover">
+    <thead class="table-header">
+      <tr>
+        <th>年月</th>
+        <th>合計売上</th>
+        <th>内訳</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in statistics.monthly_sales %}
+      <tr>
+        <td>{{ item.month }}</td>
+        <td>{{ item.total | intcomma }}円</td>
+        <td>
+          <ul>
+            {% for fruit, details in item.details %}
+            <li>{{ fruit }}: {{ details.amount | intcomma }}円 ({{ details.volume | intcomma }}個)</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-<h3>日別</h3>
-<table class="table table-striped table-hover">
-  <thead class="table-header">
-    <tr>
-      <th>年月日</th>
-      <th>合計売上</th>
-      <th>内訳</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in statistics.daily_sales %}
-    <tr>
-      <td>{{ item.day }}</td>
-      <td>{{ item.total }}円</td>
-      <td>
-        <ul>
-          {% for fruit, details in item.details %}
-          <li>{{ fruit }}: {{ details.amount }}円({{ details.volume }}個)</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <h3>日別</h3>
+  <table class="table table-striped table-hover">
+    <thead class="table-header">
+      <tr>
+        <th>年月日</th>
+        <th>合計売上</th>
+        <th>内訳</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in statistics.daily_sales %}
+      <tr>
+        <td>{{ item.day }}</td>
+        <td>{{ item.total | intcomma }}円</td>
+        <td>
+          <ul>
+            {% for fruit, details in item.details %}
+            <li>{{ fruit }}: {{ details.amount | intcomma }}円 ({{ details.volume | intcomma }}個)</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}
+
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+
+  h2,
+  h3 {
+    font-weight: 300;
+    color: #555;
+  }
+
+  .breadcrumbs {
+    background-color: #e9ecef;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .breadcrumbs a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+
+  .statistics .total-sales {
+    font-size: 1.5em;
+    color: #28a745;
+    font-weight: 700;
+  }
+
+  .table {
+    width: 80%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+
+  .table-header {
+    background-color: #343a40;
+    color: #fff;
+  }
+
+  .table-header th {
+    padding: 10px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul li {
+    margin-bottom: 5px;
+  }
+
+  ul li::before {
+    content: "• ";
+    color: #007bff;
+    font-weight: bold;
+  }
+</style>

@@ -1,8 +1,42 @@
+.breadcrumb {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 .table-container {
-  margin: 30px auto;
-  width: 80%;
+  margin-top: 20px;
 }
 
 .table-header {
-  background-color: #f8f9fa;
+  background-color: #343a40;
+  color: white;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #f2f2f2;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.btn-primary:hover,
+.btn-danger:hover,
+.btn-success:hover {
+  opacity: 0.8;
 }
